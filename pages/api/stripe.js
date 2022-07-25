@@ -19,7 +19,7 @@ export default async function handler(req, res) {
           { shipping_rate: "shr_1LGmAFCud8EkbqVDfZEk8orz" },
           { shipping_rate: "shr_1LHEOyCud8EkbqVDLSNvZH3f" },
         ],
-        line_items: req.body.map((item) => {
+        line_items: req.body.cartItems.map((item) => {
           const img = item.image[0].asset._ref;
           const newImage = img
             .replace(
@@ -44,19 +44,12 @@ export default async function handler(req, res) {
             quantity: item.quantity,
           };
         }),
-        success_url: `${req.headers.origin}/success`,
+        success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}`,
-        metadata: {
-          athleteFirstName: "Ken",
-          athleteLastName: "Jones",
-          athleteNumber: "12",
-          teamName: "Tigers",
-          athleteAge: "10",
-          athleteHeightFeet: "5",
-          athleteHeightInches: "6",
-          athletePosition: "Pitcher",
-          coachesName: "Jim Sally",
+        payment_intent_data: {
+          metadata: req.body.userData,
         },
+        metadata: req.body.userData,
       };
 
       // Create Checkout Sessions from body params.

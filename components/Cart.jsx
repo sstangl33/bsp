@@ -1,19 +1,36 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { TiDeleteOutline } from "react-icons/ti";
+import toast from "react-hot-toast";
+
+import { useStateContext } from "../context/StateContext";
+
+import { urlFor } from "../lib/client";
+import getStripe from "../lib/getStripe";
+
 import {
   AiOutlineMinus,
   AiOutlinePlus,
   AiOutlineLeft,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { TiDeleteOutline } from "react-icons/ti";
-import toast from "react-hot-toast";
 
-import { useStateContext } from "../context/StateContext";
-import { urlFor } from "../lib/client";
-import getStripe from "../lib/getStripe";
+const userData = {};
 
 const Cart = () => {
   const cartRef = useRef();
+
+  const [userData, setUserData] = useState({
+    sport: "tennis",
+    athlete_first_name: "Sam",
+    athlete_last_name: "Smith",
+    jersey_number: "13",
+    team_name: "Tigers",
+    athlete_age: "12",
+    athlete_height: "63",
+    athlete_position: "Pitcher",
+    coach_name: "Chuck Noll",
+  });
+
   const {
     totalPrice,
     totalQuantities,
@@ -31,15 +48,13 @@ const Cart = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(cartItems),
+      body: JSON.stringify({ cartItems, userData }),
     });
 
     if (response.statusCode === 500) return;
 
     const data = await response.json();
-
     toast.loading("Redirecting...");
-
     stripe.redirectToCheckout({ sessionId: data.id });
   };
 
