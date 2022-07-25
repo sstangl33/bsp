@@ -37,6 +37,16 @@ const Success = () => {
           IMPORTANT: PLEASE PRINT THIS ORDER CONFIRMATION AND BRING IT TO THE
           PHOTOSHOOT.
         </strong>
+        {console.log(data)}
+        <p>{data?.id}</p>
+        <p>{data?.customer_details.name}</p>
+        <p>{data?.customer_details.address.line1}</p>
+        <p>{data?.customer_details.address.line2}</p>
+        <p>{data?.customer_details.address.city}</p>
+        <p>{data?.customer_details.address.state}</p>
+        <p>{data?.customer_details.address.postal_code}</p>
+        <p>{data?.customer_details.email}</p>
+        <p>{data?.customer_details.phone}</p>
         <p>{data?.metadata.sport}</p>
         <p>{data?.metadata.athlete_first_name}</p>
         <p>{data?.metadata.jersey_number}</p>
