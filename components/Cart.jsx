@@ -227,6 +227,10 @@ const Cart = () => {
         <div className={currentStep !== 1 ? "hidden" : ""}>
           <div className="product-container user-data-form">
             <p>The products in your cart require the following information</p>
+            <p>
+              <stromg>Note</stromg>: Any blank info will be left blank on cards.
+              We are not responsible for misspelling.
+            </p>
             <form onSubmit={handleSubmit}>
               <div className="fieldGroup">
                 <label>Sport</label>
