@@ -15,9 +15,14 @@ export default async function handler(req, res) {
         phone_number_collection: {
           enabled: true,
         },
+        // My Test Account
+        // shipping_options: [
+        //   { shipping_rate: "shr_1LGmAFCud8EkbqVDfZEk8orz" },
+        //   { shipping_rate: "shr_1LHEOyCud8EkbqVDLSNvZH3f" },
+        // ],
         shipping_options: [
-          { shipping_rate: "shr_1LGmAFCud8EkbqVDfZEk8orz" },
-          { shipping_rate: "shr_1LHEOyCud8EkbqVDLSNvZH3f" },
+          { shipping_rate: "shr_1LQicjEcHiYzaqNNqaavmzaC" },
+          { shipping_rate: "shr_1LQibqEcHiYzaqNNdMXoaAOE" },
         ],
         line_items: req.body.cartItems.map((item) => {
           const img = item.image[0].asset._ref;
