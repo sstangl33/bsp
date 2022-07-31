@@ -263,7 +263,9 @@ const Cart = () => {
               </div>
 
               <div className="fieldGroup">
-                <label>Jersey Number</label>
+                <label>
+                  Jersey Number (Optional if not applicable to your sport)
+                </label>
                 <input
                   name="jerseyNumber"
                   onChange={handleJerseyNumberChange}
@@ -308,7 +310,10 @@ const Cart = () => {
                   </div>
 
                   <div className="fieldGroup">
-                    <label>Athlete's Position</label>
+                    <label>
+                      Athlete's Position (Optional if not applicable to your
+                      sport)
+                    </label>
                     <input
                       name="athletePosition"
                       onChange={handleAthletePositionChange}
