@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { GrCheckmark } from "react-icons/gr";
 
 import { client, urlFor } from "../../lib/client";
 import { Product } from "../../components";
@@ -22,7 +24,7 @@ const ProductDetails = ({ product, products }) => {
   } = useStateContext();
 
   const handleBuyNow = () => {
-    onAdd(product, qty);
+    onAdd(product, qty, digitalAdded);
 
     setShowCart(true);
   };
@@ -58,6 +60,11 @@ const ProductDetails = ({ product, products }) => {
           <h1>{name}</h1>
           {/* <h4>Details: </h4> */}
           <p>{details}</p>
+          <small>
+            Products shown are for illustrative purposes only. The actual
+            product will display your image and their graphics will be designed
+            to represent your league and sport.
+          </small>
           <p className="price">${price}</p>
           <div className="quantity">
             <h3>Quantity:</h3>
@@ -80,16 +87,18 @@ const ProductDetails = ({ product, products }) => {
               <h2>Digital Image Add-on</h2>
               <p>
                 Have a high resolution digital copy of your image emailed to
-                you.
+                you. (Must be ordered with package.)
               </p>
               <p className="price">$10</p>
               <div className="quantity">
-                <h3>Add to order:</h3>
+                <h3>Add to package:</h3>
                 <p className="quantity-desc">
                   <span className="minus" onClick={removeDigital}>
                     <AiOutlineMinus />
                   </span>
-                  <span className="num">{digitalAdded ? 1 : 0}</span>
+                  <span className="num">
+                    {digitalAdded ? <GrCheckmark /> : "X"}
+                  </span>
                   <span className="plus" onClick={addDigital}>
                     <AiOutlinePlus />
                   </span>
@@ -101,7 +110,7 @@ const ProductDetails = ({ product, products }) => {
             <button
               type="button"
               className="add-to-cart"
-              onClick={() => onAdd(product, qty)}
+              onClick={() => onAdd(product, qty, digitalAdded)}
             >
               Add to Cart
             </button>

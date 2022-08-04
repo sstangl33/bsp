@@ -28,7 +28,7 @@ const Cart = () => {
     setShowCart,
     toggleCartItemQuantity,
     onRemove,
-    digitalAdded,
+    productWithDigitalAddon,
   } = useStateContext();
 
   const [sport, setSport] = useState("");
@@ -42,6 +42,7 @@ const Cart = () => {
   const [coachName, setCoachName] = useState("");
 
   const userData = {
+    digitalAddon: productWithDigitalAddon === "" ? false : true,
     sport,
     athleteFirstName,
     athleteLastName,
@@ -163,8 +164,22 @@ const Cart = () => {
                   />
                   <div className="item-desc">
                     <div className="flex top">
-                      <h5>{item.name}</h5>
-                      <h4>${item.price}</h4>
+                      {item.name === productWithDigitalAddon ? (
+                        <>
+                          <h5>
+                            {item.name}{" "}
+                            <span className="productNameDesc">
+                              with Digital Add-on (+$10)
+                            </span>
+                          </h5>
+                          <h4>${item.price + 10}</h4>
+                        </>
+                      ) : (
+                        <>
+                          <h5>{item.name}</h5>
+                          <h4>${item.price}</h4>
+                        </>
+                      )}
                     </div>
                     <div className="flex bottom">
                       <div>
@@ -204,52 +219,6 @@ const Cart = () => {
                   </div>
                 </div>
               ))}
-            {digitalAdded ? (
-              <div className="product">
-                <img
-                  src="https://cdn.sanity.io/images/lzx186hj/production/b5d52889f371bf6f03bca5a317f2868165dd1c43-800x800.png"
-                  className="cart-product-image"
-                />
-                <div className="item-desc">
-                  <div className="flex top">
-                    <h5>Digital Add-On</h5>
-                    <h4>$10</h4>
-                  </div>
-
-                  {/* <div className="flex bottom">
-                    <div>
-                      <p className="quantity-desc">
-                        <span
-                          className="minus"
-                          onClick={() => updateDigitalQuantity()}
-                        >
-                          <AiOutlineMinus />
-                        </span>
-                        <span className="num">{digital}</span>
-                        <span
-                          className="plus"
-                          onClick={() => updateDigitalQuantity("addDigital")}
-                        >
-                          <AiOutlinePlus />
-                        </span>
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      className="remove-item"
-                      onClick={() => updateDigitalQuantity()}
-                    >
-                      <TiDeleteOutline
-                        style={{
-                          stroke: "#c8050c",
-                          fill: "#c8050c",
-                        }}
-                      />
-                    </button>
-                  </div> */}
-                </div>
-              </div>
-            ) : null}
           </div>
           {cartItems.length >= 1 && (
             <div className="cart-bottom">
@@ -273,8 +242,9 @@ const Cart = () => {
           <div className="product-container user-data-form">
             <p>The products in your cart require the following information</p>
             <p>
-              <strong>Note</strong>: Any blank info will be left blank on cards.
-              We are not responsible for misspelling.
+              <strong>Note</strong>: We are not responsible for misspelling.
+              <br />
+              Any blank info will be left blank on cards.
             </p>
             <form onSubmit={handleSubmit}>
               <div className="fieldGroup">

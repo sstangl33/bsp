@@ -414,8 +414,8 @@ footer {
 .product-container{
   margin-top: 15px;
   overflow: auto;
-max-height: 70vh;
-padding: 20px 10px;
+  max-height: 70vh;
+  padding: 20px;
 }
 .product{
   display: flex;
@@ -462,10 +462,10 @@ padding: 20px 10px;
 .cart-bottom{
   position: absolute;
   bottom: 12px;
-  right: 5px;
-width: 100%;
-padding: 30px 65px;
-
+  right: 0;
+  width: 100%;
+  padding: 30px 65px;
+  background: rgba(255,255,255,0.75);
 }
 
 .btn-container{
@@ -494,8 +494,9 @@ padding: 30px 65px;
 .product-detail-container{
   display: flex;
   gap: 40px;
-  margin: 60px 40px 120px 40px;
+  margin: 60px 40px 80px 40px;
   color: #555;
+  max-width: 800px;
 }
 
 .product-detail-image{
@@ -618,19 +619,19 @@ button {
 }
 .quantity-desc{
   border: 1px solid gray;
-padding: 6px;
 }
 .quantity-desc span{
   font-size: 16px;
-  padding: 6px 12px;
+  padding: 10px 12px 6px;
   cursor: pointer;
-}
-.quantity-desc .minus{
-  border-right: 1px solid gray;
-  /* color: #c8050c; */
+  height: 36px;
+  width: 42px;
+  display: inline-block;
 }
 .quantity-desc .num{
+  border-left: 1px solid gray;
   border-right: 1px solid gray;
+  height: 100%;
   font-size: 20px;
 }
 .maylike-products-wrapper{
@@ -795,18 +796,18 @@ input, .fieldGroup p {
   padding-bottom: 20px;
 }
 
-.alert span {
-  display: block;
-  font-size: 32px;
-  padding: 10px;
-  margin-bottom: 20px;
+.alert h2 {
+  padding: 10px 10px 6px;
   background: #000;
   color: #fff;
+  text-align: center;
+  margin: 0;
 }
 
 .alert p {
   font-size: 24px;
   text-align: center;
+  margin: 20px 10px 10px;
 }
 
 @media screen and (max-width:1400px) {
@@ -885,7 +886,7 @@ input, .fieldGroup p {
   }
   .cart-container{
     width: 415px;
-  padding: 4px;
+    padding: 4px;
   }
   .cart-heading{
     margin-top: 35px;
@@ -976,7 +977,7 @@ input, .fieldGroup p {
     margin-right: 0;
   }
   .cart-container {
-    width: 300px;
+    width: 350px;
   }
   .product .cart-product-image {
     width: 40px;

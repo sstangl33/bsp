@@ -46,18 +46,19 @@ const Success = () => {
           </p>
           <h2>Thank you for your order!</h2>
           <div className="alert">
+            <h2>IMPORTANT</h2>
             <p>
               <strong>
-                <span>IMPORTANT</span>IF THIS IS A PRE-ORDER, PLEASE PRINT THIS
-                ORDER CONFIRMATION AND BRING IT TO THE PHOTOSHOOT.
+                IF THIS IS A PRE-ORDER, PLEASE PRINT THIS ORDER CONFIRMATION AND
+                BRING IT TO THE PHOTOSHOOT.
               </strong>
             </p>
           </div>
 
           <h3>Order Info</h3>
           {console.log("Data:", data)}
-          {data?.line_items.data.map((item) => (
-            <div className="fieldGroupCollection">
+          {data?.line_items.data.map((item, i) => (
+            <div key={i} className="fieldGroupCollection">
               <div className="fieldGroup w-25">
                 <label>Quantity</label>
                 <p>{item.quantity}</p>
@@ -68,6 +69,12 @@ const Success = () => {
               </div>
             </div>
           ))}
+          {data?.metadata.digitalAddon === "true" ? (
+            <div className="fieldGroup">
+              <label>Product</label>
+              <p>Digital Add-On</p>
+            </div>
+          ) : null}
 
           <hr />
           <h3>Customer Info</h3>
