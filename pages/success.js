@@ -48,13 +48,14 @@ const Success = () => {
           <div className="alert">
             <p>
               <strong>
-                <span>IMPORTANT</span>PLEASE PRINT THIS ORDER CONFIRMATION AND
-                BRING IT TO THE PHOTOSHOOT.
+                <span>IMPORTANT</span>IF THIS IS A PRE-ORDER, PLEASE PRINT THIS
+                ORDER CONFIRMATION AND BRING IT TO THE PHOTOSHOOT.
               </strong>
             </p>
           </div>
 
           <h3>Order Info</h3>
+          {console.log("Data:", data)}
           {data?.line_items.data.map((item) => (
             <div className="fieldGroupCollection">
               <div className="fieldGroup w-25">
@@ -170,7 +171,7 @@ const Success = () => {
           <p className="description">
             If you have any questions, please email
             <a className="email" href="mailto:billsauersphotography@gmail.com">
-              billsauersphotography@gmail.com or call <tel>555-555-5555</tel>
+              billsauersphotography@gmail.com or call <tel>724-469-1247</tel>
             </a>
           </p>
           <Link href="/">

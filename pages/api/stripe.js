@@ -15,10 +15,16 @@ export default async function handler(req, res) {
         phone_number_collection: {
           enabled: true,
         },
+        // Test shipping rates
         shipping_options: [
-          { shipping_rate: "shr_1LRdocEcHiYzaqNN6dRlUHkk" },
-          { shipping_rate: "shr_1LRdqrEcHiYzaqNNuoGvv5Ok" },
+          { shipping_rate: process.env.STRIPE_SHIPPING_RATE_1 },
+          { shipping_rate: process.env.STRIPE_SHIPPING_RATE_2 },
         ],
+        // BSP shipping rates
+        // shipping_options: [
+        //   { shipping_rate: "shr_1LRdocEcHiYzaqNN6dRlUHkk" },
+        //   { shipping_rate: "shr_1LRdqrEcHiYzaqNNuoGvv5Ok" },
+        // ],
         line_items: req.body.cartItems.map((item) => {
           const img = item.image[0].asset._ref;
           const newImage = img

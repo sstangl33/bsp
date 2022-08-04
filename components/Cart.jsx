@@ -28,6 +28,7 @@ const Cart = () => {
     setShowCart,
     toggleCartItemQuantity,
     onRemove,
+    showDigitalInCart,
   } = useStateContext();
 
   const [sport, setSport] = useState("");
@@ -176,9 +177,7 @@ const Cart = () => {
                           >
                             <AiOutlineMinus />
                           </span>
-                          <span className="num" onClick="">
-                            {item.quantity}
-                          </span>
+                          <span className="num">{item.quantity}</span>
                           <span
                             className="plus"
                             onClick={() =>
@@ -205,6 +204,52 @@ const Cart = () => {
                   </div>
                 </div>
               ))}
+            {showDigitalInCart === 1 ? (
+              <div className="product">
+                <img
+                  src="https://cdn.sanity.io/images/lzx186hj/production/b5d52889f371bf6f03bca5a317f2868165dd1c43-800x800.png"
+                  className="cart-product-image"
+                />
+                <div className="item-desc">
+                  <div className="flex top">
+                    <h5>Digital Add-On</h5>
+                    <h4>$10</h4>
+                  </div>
+
+                  {/* <div className="flex bottom">
+                    <div>
+                      <p className="quantity-desc">
+                        <span
+                          className="minus"
+                          onClick={() => updateDigitalQuantity()}
+                        >
+                          <AiOutlineMinus />
+                        </span>
+                        <span className="num">{digital}</span>
+                        <span
+                          className="plus"
+                          onClick={() => updateDigitalQuantity("addDigital")}
+                        >
+                          <AiOutlinePlus />
+                        </span>
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      className="remove-item"
+                      onClick={() => updateDigitalQuantity()}
+                    >
+                      <TiDeleteOutline
+                        style={{
+                          stroke: "#c8050c",
+                          fill: "#c8050c",
+                        }}
+                      />
+                    </button>
+                  </div> */}
+                </div>
+              </div>
+            ) : null}
           </div>
           {cartItems.length >= 1 && (
             <div className="cart-bottom">
@@ -228,7 +273,7 @@ const Cart = () => {
           <div className="product-container user-data-form">
             <p>The products in your cart require the following information</p>
             <p>
-              <stromg>Note</stromg>: Any blank info will be left blank on cards.
+              <strong>Note</strong>: Any blank info will be left blank on cards.
               We are not responsible for misspelling.
             </p>
             <form onSubmit={handleSubmit}>

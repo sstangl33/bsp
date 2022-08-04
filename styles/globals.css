@@ -239,16 +239,15 @@ header {
   border-radius: 15px;
 }
 
-
 .desc{
-position: absolute;
-right: 10%;
-bottom: 5%;
-width: 300px;
-line-height: 1.3;
-display: flex;
-flex-direction: column;
- color: #324d67;
+  position: absolute;
+  right: 10%;
+  bottom: 5%;
+  width: 300px;
+  line-height: 1.3;
+  display: flex;
+  flex-direction: column;
+  color: #324d67;
 
 }
 .desc p{
@@ -494,11 +493,9 @@ padding: 30px 65px;
 }
 .product-detail-container{
   display: flex;
- gap: 40px;
- margin: 40px;
- margin-top: 60px;
- color: #555;
-
+  gap: 40px;
+  margin: 60px 40px 120px 40px;
+  color: #555;
 }
 
 .product-detail-image{
@@ -569,6 +566,19 @@ padding: 30px 65px;
   display: flex;
   gap: 30px;
 }
+
+.digitalAddon {
+  margin-top: 26px;
+  border-top: 1px solid #ccc;
+  padding-top: 18px;
+}
+
+span.productNameDesc {
+  display: block;
+  font-size: 16px;
+  font-weight: normal;
+}
+
 button {
   font-family: -apple-system, BlinkMacSystemFont, Bebas Neue, Roboto, Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -898,7 +908,7 @@ input, .fieldGroup p {
     width: 150px;
   }
   .product-detail-container{
-    margin: 20px;
+    margin: 20px 20px 120px 20px;
   }
 
 .item-desc .flex{

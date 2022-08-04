@@ -18,6 +18,11 @@ export default {
       type: "string",
     },
     {
+      name: "digitalAddon",
+      title: "Digital Addon",
+      type: "string",
+    },
+    {
       name: "slug",
       title: "Slug",
       type: "slug",

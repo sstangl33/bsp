@@ -4,17 +4,31 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { client, urlFor } from "../../lib/client";
 import { Product } from "../../components";
 import { useStateContext } from "../../context/StateContext";
+import { useRouter } from "next/router";
 
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
-  const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+  const {
+    decQty,
+    incQty,
+    qty,
+    onAdd,
+    setShowCart,
+    digital,
+    addDigital,
+    removeDigital,
+    showDigitalInStore,
+  } = useStateContext();
 
   const handleBuyNow = () => {
-    onAdd(product, qty);
+    onAdd(product, qty, digital);
 
     setShowCart(true);
   };
+
+  const router = useRouter();
+  const productURL = router.query.slug;
 
   return (
     <div>
@@ -57,11 +71,37 @@ const ProductDetails = ({ product, products }) => {
               </span>
             </p>
           </div>
+          {(showDigitalInStore === 1 && productURL === "package-a") ||
+          (showDigitalInStore === 1 && productURL === "package-b") ||
+          (showDigitalInStore === 1 && productURL === "package-c") ||
+          (showDigitalInStore === 1 && productURL === "package-d") ||
+          (showDigitalInStore === 1 && productURL === "package-e") ? (
+            <div className="digitalAddon">
+              <h2>Digital Image Add-on</h2>
+              <p>
+                Have a high resolution digital copy of your image emailed to
+                you.
+              </p>
+              <p className="price">$10</p>
+              <div className="quantity">
+                <h3>Add to order:</h3>
+                <p className="quantity-desc">
+                  <span className="minus" onClick={removeDigital}>
+                    <AiOutlineMinus />
+                  </span>
+                  <span className="num">{digital}</span>
+                  <span className="plus" onClick={addDigital}>
+                    <AiOutlinePlus />
+                  </span>
+                </p>
+              </div>
+            </div>
+          ) : null}
           <div className="buttons">
             <button
               type="button"
               className="add-to-cart"
-              onClick={() => onAdd(product, qty)}
+              onClick={() => onAdd(product, qty, digital)}
             >
               Add to Cart
             </button>
@@ -147,8 +187,6 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   const product = await client.fetch(query);
   const products = await client.fetch(productsQuery);
-
-  console.log(product);
 
   return {
     props: { products, product },

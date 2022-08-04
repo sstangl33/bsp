@@ -9,33 +9,47 @@ export const StateContext = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
+  const [digital, setDigital] = useState(0);
+  const [showDigitalInStore, setShowDigitalInStore] = useState(1);
+  const [showDigitalInCart, setShowDigitalInCart] = useState(0);
 
   let foundProduct;
   let index;
 
-  const onAdd = (product, quantity) => {
+  const onAdd = (product, quantity, digital) => {
     const checkProductInCart = cartItems.find(
       (item) => item._id === product._id
     );
 
-    setTotalPrice(
-      (prevTotalPrice) => prevTotalPrice + product.price * quantity
-    );
+    if (digital === 1) {
+      setTotalPrice(
+        (prevTotalPrice) => prevTotalPrice + product.price * quantity + 10
+      );
+      setShowDigitalInCart(1);
+      setShowDigitalInStore(0);
+    } else {
+      setTotalPrice(
+        (prevTotalPrice) => prevTotalPrice + product.price * quantity
+      );
+    }
+
     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
 
     if (checkProductInCart) {
       const updatedCartItems = cartItems.map((cartProduct) => {
-        if (cartProduct._id === product._id)
+        if (cartProduct._id === product._id) {
           return {
             ...cartProduct,
             quantity: cartProduct.quantity + quantity,
           };
+        } else {
+          return { ...cartProduct };
+        }
       });
 
       setCartItems(updatedCartItems);
     } else {
       product.quantity = quantity;
-
       setCartItems([...cartItems, { ...product }]);
     }
 
@@ -57,10 +71,21 @@ export const StateContext = ({ children }) => {
     foundProduct = cartItems.find((item) => item._id === product._id);
     const newCartItems = cartItems.filter((item) => item._id !== product._id);
 
-    setTotalPrice(
-      (prevTotalPrice) =>
-        prevTotalPrice - foundProduct.price * foundProduct.quantity
-    );
+    if (digital === 1) {
+      setTotalPrice(
+        (prevTotalPrice) =>
+          prevTotalPrice - foundProduct.price * foundProduct.quantity - 10
+      );
+      setShowDigitalInCart(0);
+      setShowDigitalInStore(1);
+      setDigital(0);
+    } else {
+      setTotalPrice(
+        (prevTotalPrice) =>
+          prevTotalPrice - foundProduct.price * foundProduct.quantity
+      );
+    }
+
     setTotalQuantities(
       (prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity
     );
@@ -103,6 +128,28 @@ export const StateContext = ({ children }) => {
     });
   };
 
+  const addDigital = () => {
+    setDigital(1);
+    setShowDigitalInStore(1);
+  };
+
+  const removeDigital = () => {
+    setDigital(0);
+    setShowDigitalInStore(0);
+  };
+
+  const updateDigitalQuantity = (value) => {
+    if (value === "addDigital") {
+      setDigital(1);
+      setShowDigitalInStore(1);
+    } else {
+      setDigital(0);
+      setShowDigitalInStore(0);
+      setShowDigitalInCart(1);
+      setTotalPrice((prevTotalPrice) => prevTotalPrice - 10);
+    }
+  };
+
   return (
     <Context.Provider
       value={{
@@ -114,12 +161,18 @@ export const StateContext = ({ children }) => {
         qty,
         incQty,
         decQty,
+        digital,
+        addDigital,
+        removeDigital,
         onAdd,
         toggleCartItemQuantity,
         onRemove,
         setCartItems,
         setTotalPrice,
         setTotalQuantities,
+        updateDigitalQuantity,
+        showDigitalInStore,
+        showDigitalInCart,
       }}
     >
       {children}
