@@ -9,24 +9,24 @@ export const StateContext = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
-  const [digital, setDigital] = useState(0);
-  const [showDigitalInStore, setShowDigitalInStore] = useState(1);
-  const [showDigitalInCart, setShowDigitalInCart] = useState(0);
+  const [digitalAdded, setDigitalAdded] = useState(false);
+  const [showDigitalInStore, setShowDigitalInStore] = useState(true);
+  const [showDigitalInCart, setShowDigitalInCart] = useState(1);
 
   let foundProduct;
   let index;
 
-  const onAdd = (product, quantity, digital) => {
+  const onAdd = (product, quantity) => {
     const checkProductInCart = cartItems.find(
       (item) => item._id === product._id
     );
 
-    if (digital === 1) {
+    if (showDigitalInCart === 1) {
+      setShowDigitalInStore(false);
+      setShowDigitalInCart(2);
       setTotalPrice(
         (prevTotalPrice) => prevTotalPrice + product.price * quantity + 10
       );
-      setShowDigitalInCart(1);
-      setShowDigitalInStore(0);
     } else {
       setTotalPrice(
         (prevTotalPrice) => prevTotalPrice + product.price * quantity
@@ -71,19 +71,21 @@ export const StateContext = ({ children }) => {
     foundProduct = cartItems.find((item) => item._id === product._id);
     const newCartItems = cartItems.filter((item) => item._id !== product._id);
 
-    if (digital === 1) {
+    if (showDigitalInCart === 2) {
       setTotalPrice(
         (prevTotalPrice) =>
           prevTotalPrice - foundProduct.price * foundProduct.quantity - 10
       );
+      setShowDigitalInStore(true);
+      setDigitalAdded(false);
       setShowDigitalInCart(0);
-      setShowDigitalInStore(1);
-      setDigital(0);
     } else {
       setTotalPrice(
         (prevTotalPrice) =>
           prevTotalPrice - foundProduct.price * foundProduct.quantity
       );
+      setDigitalAdded(false);
+      setShowDigitalInCart(0);
     }
 
     setTotalQuantities(
@@ -129,26 +131,26 @@ export const StateContext = ({ children }) => {
   };
 
   const addDigital = () => {
-    setDigital(1);
-    setShowDigitalInStore(1);
+    setDigitalAdded(true);
+    setShowDigitalInCart(1);
   };
 
   const removeDigital = () => {
-    setDigital(0);
-    setShowDigitalInStore(0);
+    setDigitalAdded(false);
+    setShowDigitalInCart(0);
   };
 
-  const updateDigitalQuantity = (value) => {
-    if (value === "addDigital") {
-      setDigital(1);
-      setShowDigitalInStore(1);
-    } else {
-      setDigital(0);
-      setShowDigitalInStore(0);
-      setShowDigitalInCart(1);
-      setTotalPrice((prevTotalPrice) => prevTotalPrice - 10);
-    }
-  };
+  // const updateDigitalQuantity = (value) => {
+  //   if (value === "addDigital") {
+  //     setDigital(1);
+  //     setShowDigitalInStore(true);
+  //   } else {
+  //     setDigital(0);
+  //     setShowDigitalInStore(false);
+  //     setShowDigitalInCart(1);
+  //     setTotalPrice((prevTotalPrice) => prevTotalPrice - 10);
+  //   }
+  // };
 
   return (
     <Context.Provider
@@ -161,7 +163,7 @@ export const StateContext = ({ children }) => {
         qty,
         incQty,
         decQty,
-        digital,
+        digitalAdded,
         addDigital,
         removeDigital,
         onAdd,
@@ -170,7 +172,6 @@ export const StateContext = ({ children }) => {
         setCartItems,
         setTotalPrice,
         setTotalQuantities,
-        updateDigitalQuantity,
         showDigitalInStore,
         showDigitalInCart,
       }}

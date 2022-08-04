@@ -28,7 +28,7 @@ const Cart = () => {
     setShowCart,
     toggleCartItemQuantity,
     onRemove,
-    showDigitalInCart,
+    digitalAdded,
   } = useStateContext();
 
   const [sport, setSport] = useState("");
@@ -204,7 +204,7 @@ const Cart = () => {
                   </div>
                 </div>
               ))}
-            {showDigitalInCart === 1 ? (
+            {digitalAdded ? (
               <div className="product">
                 <img
                   src="https://cdn.sanity.io/images/lzx186hj/production/b5d52889f371bf6f03bca5a317f2868165dd1c43-800x800.png"

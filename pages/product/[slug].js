@@ -15,14 +15,14 @@ const ProductDetails = ({ product, products }) => {
     qty,
     onAdd,
     setShowCart,
-    digital,
+    digitalAdded,
     addDigital,
     removeDigital,
     showDigitalInStore,
   } = useStateContext();
 
   const handleBuyNow = () => {
-    onAdd(product, qty, digital);
+    onAdd(product, qty);
 
     setShowCart(true);
   };
@@ -71,11 +71,11 @@ const ProductDetails = ({ product, products }) => {
               </span>
             </p>
           </div>
-          {(showDigitalInStore === 1 && productURL === "package-a") ||
-          (showDigitalInStore === 1 && productURL === "package-b") ||
-          (showDigitalInStore === 1 && productURL === "package-c") ||
-          (showDigitalInStore === 1 && productURL === "package-d") ||
-          (showDigitalInStore === 1 && productURL === "package-e") ? (
+          {(showDigitalInStore === true && productURL === "package-a") ||
+          (showDigitalInStore === true && productURL === "package-b") ||
+          (showDigitalInStore === true && productURL === "package-c") ||
+          (showDigitalInStore === true && productURL === "package-d") ||
+          (showDigitalInStore === true && productURL === "package-e") ? (
             <div className="digitalAddon">
               <h2>Digital Image Add-on</h2>
               <p>
@@ -89,7 +89,7 @@ const ProductDetails = ({ product, products }) => {
                   <span className="minus" onClick={removeDigital}>
                     <AiOutlineMinus />
                   </span>
-                  <span className="num">{digital}</span>
+                  <span className="num">{digitalAdded ? 1 : 0}</span>
                   <span className="plus" onClick={addDigital}>
                     <AiOutlinePlus />
                   </span>
@@ -101,7 +101,7 @@ const ProductDetails = ({ product, products }) => {
             <button
               type="button"
               className="add-to-cart"
-              onClick={() => onAdd(product, qty, digital)}
+              onClick={() => onAdd(product, qty)}
             >
               Add to Cart
             </button>
