@@ -31,7 +31,7 @@ export const StateContext = ({ children }) => {
       setShowDigitalInCart(2);
       setDigitalAdded(false);
       setTotalPrice(
-        (prevTotalPrice) => prevTotalPrice + product.price * quantity + 10
+        (prevTotalPrice) => prevTotalPrice + product.price * quantity + 1
       );
     } else {
       setDigitalAdded(false);
